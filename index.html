@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code 最新版安装教程 | 人工大黑</title>
+    <meta name="description" content="Claude Code 最新版安装教程，面向普通用户的安装与模型接入指南。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+        :root {
+            --bg: #f5f7fa;
+            --text: #1a1a1a;
+            --text-light: #999;
+            --accent: #03786F;
+            --code-bg: #1e1e2e;
+            --code-text: #cdd6f4;
+            --border: #e5e7eb;
+            --card-bg: #ffffff;
+            --success: #2F4F4E;
+            --tag-bg: #ecfdf5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", "微软雅黑", -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 80px 24px 80px;
+        }
+
+        .header {
+            margin-bottom: 48px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+        }
+
+        .header .subtitle a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .header .subtitle a:hover {
+            text-decoration: underline;
+        }
+
+        .header .meta-line {
+            color: var(--text-light);
+            font-size: 0.92rem;
+            margin-bottom: 6px;
+        }
+
+        .header .meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-size: 0.92rem;
+        }
+
+        .header .meta-row a,
+        .header .meta-line a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .header .meta-row a:hover,
+        .header .meta-line a:hover {
+            text-decoration: underline;
+        }
+
+        .toc {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 48px;
+        }
+
+        .toc h2 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .toc ol {
+            padding-left: 20px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .toc li {
+            margin-bottom: 6px;
+        }
+
+        .toc a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .toc a:hover {
+            color: var(--accent);
+        }
+
+        .step {
+            margin-bottom: 56px;
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .step:nth-child(1) { animation-delay: 0.1s; }
+        .step:nth-child(2) { animation-delay: 0.15s; }
+        .step:nth-child(3) { animation-delay: 0.2s; }
+        .step:nth-child(4) { animation-delay: 0.25s; }
+        .step:nth-child(5) { animation-delay: 0.3s; }
+        .step:nth-child(6) { animation-delay: 0.35s; }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .step-header h2 {
+            font-family: "Microsoft YaHei", "微软雅黑", serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+        }
+
+        .step p {
+            color: var(--text);
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+        }
+
+        .step .note {
+            color: var(--text-light);
+            font-size: 0.88rem;
+        }
+
+        .code-block {
+            position: relative;
+            background: var(--code-bg);
+            color: var(--code-text);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 16px 0;
+            font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+            font-size: 0.88rem;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+
+        .code-block .lang {
+            position: absolute;
+            top: 8px;
+            right: 52px;
+            font-size: 0.7rem;
+            color: #585b70;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 10px;
+            background: none;
+            border: 1px solid #45475a;
+            color: #a6adc8;
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
+        }
+
+        .copy-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .copy-btn.copied {
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        code {
+            background: #f3f4f6;
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+            font-size: 0.88em;
+        }
+
+        .code-block code {
+            background: none;
+            padding: 0;
+            display: block;
+            white-space: pre;
+        }
+
+        .tip {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--accent);
+            border-radius: 0 8px 8px 0;
+            padding: 16px 20px;
+            margin: 16px 0;
+            font-size: 0.9rem;
+        }
+
+        .tip .tip-title {
+            font-weight: 600;
+            color: var(--accent);
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+        }
+
+        .tip p {
+            margin-bottom: 6px;
+        }
+
+        .tip p:last-child {
+            margin-bottom: 0;
+        }
+
+        .warning {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-left: 3px solid #03786F;
+            border-radius: 0 8px 8px 0;
+            padding: 16px 20px;
+            margin: 16px 0;
+            font-size: 0.9rem;
+        }
+
+        .warning .tip-title {
+            font-weight: 600;
+            color: #03786F;
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+        }
+
+        .disclaimer {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-left: 3px solid #2F4F4E;
+            border-radius: 0 8px 8px 0;
+            padding: 18px 20px;
+            margin: 20px 0 0;
+            font-size: 0.9rem;
+        }
+
+        .disclaimer h3 {
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+            color: #2F4F4E;
+        }
+
+        .disclaimer p {
+            margin-bottom: 10px;
+        }
+
+        .disclaimer ul {
+            margin: 0 0 12px 18px;
+            color: var(--text);
+        }
+
+        .disclaimer li {
+            margin-bottom: 8px;
+        }
+
+        .disclaimer .fine-print {
+            font-size: 0.84rem;
+            color: var(--text-light);
+            margin-bottom: 0;
+        }
+
+        .inline-image {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin: 16px 0;
+            background: #fff;
+        }
+
+        .expand-box {
+            margin-top: 18px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--card-bg);
+            overflow: hidden;
+        }
+
+        .expand-box summary {
+            list-style: none;
+            cursor: pointer;
+            padding: 14px 18px;
+            font-size: 0.92rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .expand-box summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .expand-box summary::before {
+            content: "▸";
+            display: inline-block;
+            margin-right: 8px;
+            color: var(--accent);
+            transition: transform 0.2s ease;
+        }
+
+        .expand-box[open] summary::before {
+            transform: rotate(90deg);
+        }
+
+        .expand-box-content {
+            padding: 0 18px 18px;
+            border-top: 1px solid var(--border);
+        }
+
+        .expand-box-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .download-group {
+            margin: 16px 0;
+        }
+
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .download-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            margin-bottom: 10px;
+        }
+
+        .download-btn:hover {
+            border-color: var(--accent);
+            transform: translateX(4px);
+        }
+
+        .download-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .download-icon {
+            font-size: 1.2rem;
+        }
+
+        .download-label strong {
+            display: block;
+            font-weight: 500;
+        }
+
+        .download-label span {
+            font-size: 0.78rem;
+            color: var(--text-light);
+        }
+
+        .download-code-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 6px;
+            flex-wrap: wrap;
+        }
+
+        .passcode-copy-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-light);
+            font-size: 0.74rem;
+            padding: 2px 8px;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
+        }
+
+        .passcode-copy-btn:hover,
+        .passcode-copy-btn.copied {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .download-arrow {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .download-btn:hover .download-arrow {
+            color: var(--accent);
+        }
+
+        .download-sub {
+            display: block;
+            font-size: 0.82rem;
+            color: var(--text-light);
+            margin: 4px 0 12px 4px;
+        }
+
+        .download-sub a,
+        .step a.inline-link {
+            color: var(--text-light);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        .download-sub a:hover,
+        .step a.inline-link:hover {
+            color: var(--accent);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0;
+            margin: 16px 0 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 8px 20px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
+        }
+            color: var(--text);
+        }
+
+        .tab-btn.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--border);
+            margin: 48px 0;
+        }
+
+        .qa-item {
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+        }
+
+        .qa-item:first-of-type {
+            padding-top: 4px;
+        }
+
+        .qa-item:last-of-type {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .qa-q {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+        }
+
+        .qa-a {
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 24px;
+            color: var(--text-light);
+            font-size: 0.8rem;
+            border-top: 1px solid var(--border);
+            margin-top: 48px;
+        }
+
+        .footer a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer a:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 60px 20px 60px;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .code-block {
+                font-size: 0.8rem;
+                padding: 14px 16px;
+            }
+
+            .tab-btn {
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+
+            .download-btn {
+                padding: 12px 16px;
+            }
+
+            .download-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (min-width: 1100px) {
+            body {
+                font-size: 18px;
+            }
+
+            .container {
+                max-width: 940px;
+                padding: 96px 36px 104px;
+            }
+
+            .header h1 {
+                font-size: 2.7rem;
+                margin-bottom: 16px;
+            }
+
+            .header .subtitle,
+            .header .meta-row {
+                font-size: 1.05rem;
+            }
+
+            .toc {
+                padding: 30px 34px;
+            }
+
+            .toc h2 {
+                font-size: 0.96rem;
+            }
+
+            .toc ol {
+                font-size: 1.04rem;
+            }
+
+            .step-header h2 {
+                font-size: 1.72rem;
+            }
+
+            .step p,
+            .qa-a,
+            .qa-q {
+                font-size: 1.06rem;
+            }
+
+            .step .note,
+            .download-sub,
+            .download-label span {
+                font-size: 0.95rem;
+            }
+
+            .tip,
+            .warning {
+                padding: 20px 24px;
+                font-size: 1rem;
+            }
+
+            .download-btn {
+                padding: 18px 24px;
+            }
+
+            .download-label strong {
+                font-size: 1.06rem;
+            }
+
+            .code-block {
+                font-size: 0.98rem;
+                padding: 18px 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>Claude Code 最新版安装教程</h1>
+        <p class="subtitle">律师团队的 Claude Code 安装与模型接入指南。</p>
+    </div>
+
+    <div class="toc">
+        <h2>目录</h2>
+        <ol>
+            <li><a href="#step1">安装 Git Bash（仅 Windows）</a></li>
+            <li><a href="#step2">安装 Claude Code 本体</a></li>
+            <li><a href="#step3">配置环境变量 PATH</a></li>
+            <li><a href="#step4">安装 cc-switch，接入更多模型</a></li>
+            <li><a href="#step5">Claude Code 基础使用</a></li>
+            <li><a href="#step6">常见问题</a></li>
+            <li><a href="#step7">文件查找工具推荐：Everything</a></li>
+        </ol>
+    </div>
+
+    <div class="step" id="step1">
+        <div class="step-header">
+            <div class="step-number">1</div>
+            <h2>安装 Git Bash（仅 Windows 需要，Mac / Linux 跳过）</h2>
+        </div>
+        <p>下载安装包</p>
+
+        <div class="download-group">
+            <div class="download-grid">
+                <a href="https://wwayc.lanzoub.com/iSdog3n29ung" class="download-btn" target="_blank" rel="noopener">
+                    <div class="download-left">
+                        <span class="download-icon">📥</span>
+                        <div class="download-label">
+                            <strong>Git for Windows（64-bit）</strong>
+                            <span>适用于绝大多数 Windows 电脑</span>
+                            <div class="download-code-row">
+                                <span>提取码 <code>67no</code></span>
+                                <button class="passcode-copy-btn" type="button" onclick="copyText(event, this, '67no')">复制提取码</button>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="download-arrow">→</span>
+                </a>
+                <a href="https://wwayc.lanzoub.com/ioqPy3n29vmb" class="download-btn" target="_blank" rel="noopener">
+                    <div class="download-left">
+                        <span class="download-icon">📥</span>
+                        <div class="download-label">
+                            <strong>Git for Windows（ARM64）</strong>
+                            <span>适用于 ARM 处理器的 Windows 电脑</span>
+                            <div class="download-code-row">
+                                <span>提取码 <code>f3m1</code></span>
+                                <button class="passcode-copy-btn" type="button" onclick="copyText(event, this, 'f3m1')">复制提取码</button>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="download-arrow">→</span>
+                </a>
+            </div>
+            <span class="download-sub">备用：也可从<a href="https://git-scm.com/download/win" target="_blank" rel="noopener">Git 官网</a>下载</span>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="step" id="step2">
+        <div class="step-header">
+            <div class="step-number">2</div>
+            <h2>安装 Claude Code 本体</h2>
+        </div>
+        <p>打开终端（Windows 用 PowerShell，Mac/Linux 用 Terminal），粘贴命令即可：</p>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab(event, 'tab-win')">Windows</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-mac')">Mac / Linux</button>
+        </div>
+
+        <div class="tab-content active" id="tab-win">
+            <div class="code-block">
+                <span class="lang">powershell</span>
+                <button class="copy-btn" onclick="copyCode(this)">复制</button>
+                <code>irm https://daheiai.com/cc.ps1 | iex</code>
+            </div>
+            <p class="note">安装 2.1.153 老版本命令：</p>
+            <div class="code-block">
+                <span class="lang">powershell</span>
+                <button class="copy-btn" onclick="copyCode(this)">复制</button>
+                <code>&amp; ([scriptblock]::Create((irm https://daheiai.com/cc.ps1))) 2.1.153</code>
+            </div>
+            <p class="note">备用：官方原版命令 <code>irm https://claude.ai/install.ps1 | iex</code></p>
+        </div>
+
+        <div class="tab-content" id="tab-mac">
+            <div class="code-block">
+                <span class="lang">bash</span>
+                <button class="copy-btn" onclick="copyCode(this)">复制</button>
+                <code>curl -fsSL https://daheiai.com/cc.sh | sh</code>
+            </div>
+            <p class="note">安装 2.1.153 老版本命令：</p>
+            <div class="code-block">
+                <span class="lang">bash</span>
+                <button class="copy-btn" onclick="copyCode(this)">复制</button>
+                <code>curl -fsSL https://daheiai.com/cc.sh | sh -s -- 2.1.153</code>
+            </div>
+            <p class="note">备用：官方原版命令 <code>curl -fsSL https://claude.ai/install.sh | sh</code></p>
+        </div>
+
+        <p class="note">整个过程会下载一个 200+MB 的软件，取决于个人的网络状态，时间可能<strong>会很长</strong>。</p>
+
+        <div class="disclaimer">
+            <h3>⚠️ 重要声明</h3>
+            <p>Claude Code Windows 安装脚本用于自动化安装流程，具体的脚本内容已开源，放在 GitHub 上可公开查看。</p>
+            <ul>
+                <li>脚本会获取官方版本信息（<code>latest</code> / <code>manifest.json</code>），并在本地执行安装。</li>
+                <li><strong>所有二进制文件（claude.exe）均由用户电脑直接从 Anthropic 官方 Google Cloud Storage 存储桶下载。</strong></li>
+                <li>使用前请确认当前网络环境能够正常访问 <code>storage.googleapis.com</code> 及相关官方地址。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="step" id="step3">
+        <div class="step-header">
+            <div class="step-number">3</div>
+            <h2>配置环境变量 PATH</h2>
+        </div>
+        <p>把 <code>C:\Users\你的用户名\.local\bin\</code> 加到用户级 PATH。</p>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab(event, 'tab-path-win')">Windows</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-path-mac')">Mac / Linux</button>
+        </div>
+
+        <div class="tab-content active" id="tab-path-win">
+            <div class="tip">
+                <div class="tip-title">具体操作</div>
+                <p>点开开始菜单，输入环境变量，点"编辑系统环境变量"。</p>
+                <p>在窗口下面点"环境变量"，在系统环境变量里找到 <code>Path</code>，双击它。</p>
+                <p>新建一条，把 <code>C:\Users\你的用户名\.local\bin\</code> 复制进去。</p>
+            </div>
+
+            <details class="expand-box" id="image-gallery">
+                <summary onclick="toggleImageGallery(this)">查看图示</summary>
+                <div class="expand-box-content">
+                    <img src="hjbl1.png" alt="环境变量配置步骤 1" class="inline-image" style="margin-bottom: 16px;">
+                    <img src="hjbl2.png" alt="环境变量配置步骤 2" class="inline-image" style="margin-bottom: 16px;">
+                    <img src="hjbl3.png" alt="环境变量配置步骤 3" class="inline-image" style="margin-bottom: 16px;">
+                    <img src="hjbl4.png" alt="环境变量配置步骤 4" class="inline-image" style="margin-bottom: 16px;">
+                    <img src="hjbl5.png" alt="环境变量配置步骤 5" class="inline-image">
+                </div>
+            </details>
+        </div>
+
+        <div class="tab-content" id="tab-path-mac">
+            <div class="tip">
+                <div class="tip-title">通常不需要手动配置</div>
+                <p>Mac / Linux 的安装脚本一般会自动配置 PATH。</p>
+                <p>先试试关掉当前终端，重开一个新的输入 <code>claude</code>。</p>
+                <p>然后还是找不到命令，手动把以下内容加到你的 shell 配置文件中：</p>
+            </div>
+            <div class="code-block">
+                <span class="lang">bash</span>
+                <button class="copy-btn" onclick="copyCode(this)">复制</button>
+                <code>export PATH="$HOME/.local/bin:$PATH"</code>
+            </div>
+            <p class="note">加到 <code>~/.bashrc</code> 或 <code>~/.zshrc</code>，然后执行 <code>source ~/.zshrc</code> 生效。</p>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="step" id="step4">
+        <div class="step-header">
+            <div class="step-number">4</div>
+            <h2>安装 cc-switch，接入更多模型</h2>
+        </div>
+        <p>软件装好了，但还没有 AI 模型可用。这时候需要 <strong>cc-switch</strong>，它可以切换不同的 AI 模型提供商。</p>
+
+        <div class="tip">
+            <div class="tip-title">cc-switch 支持的模型</div>
+            <p><a class="inline-link" href="https://www.bigmodel.cn/glm-coding?ic=VF3QVUP0OZ" target="_blank" rel="noopener">智谱 GLM</a>、<a class="inline-link" href="https://platform.minimaxi.com/subscribe/token-plan?code=FwZQHdpVR1&source=link" target="_blank" rel="noopener">MiniMax</a>、<a class="inline-link" href="https://www.kimi.com/membership/pricing" target="_blank" rel="noopener">Kimi</a>、<a class="inline-link" href="https://platform.deepseek.com" target="_blank" rel="noopener">DeepSeek</a>等</p>
+        <p>Claude、GPT 等模型可通过 <a class="inline-link" href="https://api.daheiai.com/" target="_blank" rel="noopener">API 服务</a> 接入。</p>
+        </div>
+
+        <p>下载安装：</p>
+
+        <div class="download-group">
+            <div class="download-grid">
+                <a href="https://wwayc.lanzoub.com/iTk5M3thyy2f" class="download-btn" target="_blank" rel="noopener">
+                    <div class="download-left">
+                        <span class="download-icon">📦</span>
+                        <div class="download-label">
+                            <strong>CC-Switch for Windows</strong>
+                            <span>Windows 安装包</span>
+                        </div>
+                    </div>
+                    <span class="download-arrow">→</span>
+                </a>
+                <a href="https://wwayc.lanzoub.com/iPEcO3thzc3a" class="download-btn" target="_blank" rel="noopener">
+                    <div class="download-left">
+                        <span class="download-icon">📦</span>
+                        <div class="download-label">
+                            <strong>CC-Switch for macOS</strong>
+                            <span>macOS 安装包</span>
+                        </div>
+                    </div>
+                    <span class="download-arrow">→</span>
+                </a>
+            </div>
+            <span class="download-sub">新版本发布时可从<a href="https://github.com/farion1231/cc-switch/releases" target="_blank" rel="noopener">GitHub Releases</a>获取更新</span>
+        </div>
+
+        <img src="CC-switch-qudao.jpg" alt="cc-switch 添加渠道示意图" class="inline-image">
+
+        <p>安装完成后，以智谱 GLM 为例，在 cc-switch 选择 Claude 图标（默认是第一个），然后添加渠道，填入密钥，指定模型名称，最后启用。回到终端输入 <code>claude</code> 就可以直接开始对话了。</p>
+
+        <p style="margin-top: 18px; margin-bottom: 10px; color: var(--accent); font-size: 0.9rem; font-weight: 600;">报错时的处理</p>
+
+        <div class="code-block">
+            <span class="lang">powershell</span>
+            <button class="copy-btn" onclick="copyCode(this)">复制</button>
+            <code>claude --debug</code>
+        </div>
+
+        <p class="note">打开 PowerShell，复制粘贴这行命令，并查看报错。后文将列举具体报错情形与解决方案，若没有您遇到的错误类型，请询问实习生或将报错复制给大语言模型寻找解决方案。</p>
+
+        <p style="margin-top: 18px; margin-bottom: 10px; color: var(--accent); font-size: 0.9rem; font-weight: 600;">报错一</p>
+
+        <img src="ccbaocuo2.jpg" alt="Claude Code 登录检查报错示意图" class="inline-image">
+
+        <details class="expand-box">
+            <summary>如果你出现了上图这种情况，点这里查看处理方式</summary>
+            <div class="expand-box-content">
+                <p><strong>原因：</strong>CC Switch 的作用就是一键修改 Claude Code 的配置文件，但 Claude Code 在首次运行时如果没有通过检测，会直接忽略你自定义的 API 地址，还是会去强行连接官方做登录检查。</p>
+                <p><strong>方法一：通过命令的方式来跳过</strong></p>
+                <p>直接在终端运行以下命令，向 <code>.claude.json</code> 写入"已完成初始化"的标识：</p>
+                <p>macOS / Linux：</p>
+                <div class="code-block">
+                    <span class="lang">bash</span>
+                    <button class="copy-btn" onclick="copyCode(this)">复制</button>
+                    <code>echo '{"hasCompletedOnboarding": true}' > ~/.claude.json</code>
+                </div>
+                <p>Windows：</p>
+                <div class="code-block">
+                    <span class="lang">powershell</span>
+                    <button class="copy-btn" onclick="copyCode(this)">复制</button>
+                    <code>echo '{"hasCompletedOnboarding": true}' > $env:USERPROFILE\.claude.json</code>
+                </div>
+                <p><strong>方法二：手动修改一个文件</strong></p>
+                <p>打开这个文件，比如 <code>C:\Users\admin\.claude.json</code>。这个路径里的用户名部分每个人都不一样，看你自己的用户名是什么。</p>
+                <p>它默认可能是隐藏的，你需要在文件管理器上面勾选一下显示隐藏的文件。如果你的电脑上直接没有这个文件，那就新建一个也可以。</p>
+                <p>然后把这个内容复制进去：<code>"hasCompletedOnboarding": true,</code></p>
+                <p>保存文件，确保 CC Switch 已经切换到你你的渠道后，重启你的 Claude Code。如果你的格式会报错，比如多了一个引号、括号或句号，可以把文件里的内容全选复制，发给任意一个网页版 AI，让它只修复格式、保留原有内容，然后把结果重新粘贴回来。</p>
+            </div>
+        </details>
+
+        <div style="margin-top: 24px; padding: 16px 20px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text-light); font-size: 0.9rem;">
+            待完善的报错情况……
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="step" id="step5">
+        <div class="step-header">
+            <div class="step-number">5</div>
+            <h2>Claude Code 基础使用</h2>
+        </div>
+        <div class="qa-item">
+            <div class="qa-q">怎么启动 Claude Code？</div>
+            <div class="qa-a">先进入你要工作的文件夹，再输入 <code>claude</code>。右键文件夹用终端打开最快；如果右键没有，就先打开终端，再用 <code>cd + 文件夹路径</code> 进入工作目录。</div>
+        </div>
+
+        <details class="expand-box" id="qd-gallery">
+            <summary onclick="toggleImageGallery(this)">查看图示</summary>
+            <div class="expand-box-content">
+                <img src="qd1.png" alt="启动 Claude Code 步骤 1" class="inline-image" style="margin-bottom: 16px;">
+                <img src="qd2.png" alt="启动 Claude Code 步骤 2" class="inline-image" style="margin-bottom: 16px;">
+                <img src="qd3.png" alt="启动 Claude Code 步骤 3" class="inline-image" style="margin-bottom: 16px;">
+                <img src="qd4.png" alt="启动 Claude Code 步骤 4" class="inline-image">
+            </div>
+        </details>
+
+            <div class="qa-item">
+                <div class="qa-q">下次回来怎么接着聊？</div>
+                <div class="qa-a">用同样的方式回到这个工作目录，仍然先启动 <code>claude</code>，然后在对话框内输入 <code>/resume</code>，就可以选择曾经在这个工作目录中的各种历史会话，回车即可恢复选中的会话了。</div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-q">对话太长怎么办？</div>
+                <div class="qa-a">聊满的时候，Claude Code 会自动压缩；随时可以输入 <code>/context</code> 来查看当前会话的上下文占用情况。或者你担心自动压缩来得猝不及防，你也可以手动输入 <code>/compact</code>。压缩次数越多，越早期的内容越容易失真。</div>
+            </div>
+
+        <div class="qa-item">
+            <div class="qa-q">为什么要在终端里用它？</div>
+            <div class="qa-a">因为终端里的输入和输出都是文字，AI 处理文字最快。它可以直接读文件、改文件、运行命令，所以你可以用它写代码、排查问题、处理项目文件。</div>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="step" id="step6">
+        <div class="step-header">
+            <div class="step-number">6</div>
+            <h2>常见问题</h2>
+        </div>
+
+        <div class="qa-item">
+            <div class="qa-q">如何卸载 Claude Code？</div>
+            <div class="qa-a">
+                <p>官方目前更推荐原生安装方式，本教程采用的也是这种方式。<strong>正常卸载方式：打开设置 &gt; 应用 &gt; 已安装的应用，搜索"Claude Code"，点击三个点，然后选择卸载。</strong></p>
+
+                <details class="expand-box">
+                    <summary>系统应用列表里找不到 Claude Code 时，展开查看手动清理方式</summary>
+                    <div class="expand-box-content">
+                        <p><strong>1. 卸载核心程序</strong></p>
+                        <p>以管理员身份打开 PowerShell（普通 PowerShell 也可以），逐行运行：</p>
+                        <div class="code-block">
+                            <span class="lang">powershell</span>
+                            <button class="copy-btn" onclick="copyCode(this)">复制</button>
+                            <code># 删除 claude 可执行文件
+Remove-Item -Path "$env:USERPROFILE\.local\bin\claude.exe" -Force
+
+# 删除 Claude Code 的版本和共享文件
+Remove-Item -Path "$env:USERPROFILE\.local\share\claude" -Recurse -Force</code>
+                        </div>
+
+                        <p><strong>2. 完全清理</strong></p>
+                        <p>继续运行以下命令，删除用户配置目录，防止残留配置影响重装：</p>
+                        <div class="code-block">
+                            <span class="lang">powershell</span>
+                            <button class="copy-btn" onclick="copyCode(this)">复制</button>
+                            <code># 删除主配置文件夹（包含设置、工具、历史记录等）
+Remove-Item -Path "$env:USERPROFILE\.claude" -Recurse -Force
+
+# 删除配置文件（如果存在）
+Remove-Item -Path "$env:USERPROFILE\.claude.json" -Force</code>
+                        </div>
+
+                        <div class="warning">
+                            <div class="tip-title">注意</div>
+                            <p>删除 <code>~/.claude</code> 会清除所有 Claude Code 的设置、自定义工具、MCP 服务器和会话历史。以后还想继续使用这些内容，建议先备份这个文件夹。</p>
+                        </div>
+
+                        <p><strong>3. 验证是否卸载干净</strong></p>
+                        <p>运行下面命令检查：</p>
+                        <div class="code-block">
+                            <span class="lang">powershell</span>
+                            <button class="copy-btn" onclick="copyCode(this)">复制</button>
+                            <code>claude --version</code>
+                        </div>
+                        <p>如果提示「command not found」或类似错误，就说明已经卸载成功。也可以用 <code>where claude</code> 查看是否还有残留路径。</p>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <div class="qa-item">
+            <div class="qa-q">如何更新 Claude Code？</div>
+            <div class="qa-a">当前版本采用手动更新方式。想更新时，重新运行一次安装命令即可。</div>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="step" id="step7">
+        <div class="step-header">
+            <div class="step-number">7</div>
+            <h2>文件查找工具推荐：Everything</h2>
+        </div>
+        <p>Everything是一款高效文件查找工具。若您的电脑系统中搜索栏不够全面和精准，例如只能搜索C盘或常见文件，推荐您下载Everything这一免费开源、没有安全隐患的本地工具。Everything对于本次安装也有协助作用。</p>
+
+        <p>下载地址：<a class="inline-link" href="https://www.voidtools.com/zh-cn/" target="_blank" rel="noopener">https://www.voidtools.com/zh-cn/</a></p>
+        <p>下载教程：<a class="inline-link" href="https://blog.csdn.net/lh155136/article/details/126208006" target="_blank" rel="noopener">https://blog.csdn.net/lh155136/article/details/126208006</a></p>
+        <p class="note">（下载步骤较为简单，若您遇到困难可查看教程。）</p>
+    </div>
+
+</div>
+
+<div class="container">
+    <div style="margin-top: 48px; margin-bottom: 48px; text-align: center; color: var(--text-light); font-size: 0.95rem;">
+        若您遇到无法解决的问题，请询问实习生:)
+    </div>
+</div>
+
+
+<script>
+function copyCode(btn) {
+    const block = btn.parentElement;
+    const code = block.querySelector('code');
+    const text = code.innerText;
+
+    copyText(null, btn, text, '复制');
+}
+
+function copyText(event, btn, text, defaultLabel = '复制提取码') {
+    if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
+    navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = '已复制';
+        btn.classList.add('copied');
+        setTimeout(() => {
+            btn.textContent = defaultLabel;
+            btn.classList.remove('copied');
+        }, 2000);
+    });
+}
+
+function switchTab(e, tabId) {
+    const parent = e.target.closest('.step');
+    const buttons = parent.querySelectorAll(':scope > .tabs > .tab-btn');
+    const contents = parent.querySelectorAll(':scope > .tab-content');
+
+    buttons.forEach(b => b.classList.remove('active'));
+    contents.forEach(c => c.classList.remove('active'));
+
+    e.target.classList.add('active');
+    document.getElementById(tabId).classList.add('active');
+}
+
+function toggleImageGallery(summary) {
+    const details = summary.parentElement;
+    if (details.hasAttribute('open')) {
+        summary.textContent = '点击收起图示';
+    } else {
+        summary.textContent = '查看图示';
+    }
+}
+
+
+</script>
+
+</body>
+</html>
