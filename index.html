@@ -145,6 +145,8 @@
         .step:nth-child(4) { animation-delay: 0.25s; }
         .step:nth-child(5) { animation-delay: 0.3s; }
         .step:nth-child(6) { animation-delay: 0.35s; }
+        .step:nth-child(7) { animation-delay: 0.4s; }
+        .step:nth-child(8) { animation-delay: 0.45s; }
 
         @keyframes fadeIn {
             to { opacity: 1; }
@@ -682,8 +684,9 @@
             <li><a href="#step3">配置环境变量 PATH</a></li>
             <li><a href="#step4">安装 cc-switch，接入更多模型</a></li>
             <li><a href="#step5">Claude Code 基础使用</a></li>
-            <li><a href="#step6">常见问题</a></li>
-            <li><a href="#step7">文件查找工具推荐：Everything</a></li>
+            <li><a href="#step6">Claude for Legal 插件安装教程</a></li>
+            <li><a href="#step7">常见问题</a></li>
+            <li><a href="#step8">文件查找工具推荐：Everything</a></li>
         </ol>
     </div>
 
@@ -971,6 +974,43 @@
     <div class="step" id="step6">
         <div class="step-header">
             <div class="step-number">6</div>
+            <h2>Claude for Legal 插件安装教程</h2>
+        </div>
+        <p>若您还没有 GitHub 账号，使用邮箱（gmail 优先）注册 GitHub 账号。</p>
+        <p class="note">GitHub 是全球最大开源社区，您可以在网站上获取丰富的程序资源，包括大量的 skill 插件。</p>
+
+        <p style="margin-top: 18px;">打开以下链接，下载插件压缩包：</p>
+        <div class="code-block">
+            <span class="lang">url</span>
+            <button class="copy-btn" onclick="copyCode(this)">复制</button>
+            <code>https://github.com/CSlawyer1985/claude-for-legal-ZH/tree/main</code>
+        </div>
+        <p>点击绿色的 <code>Code</code> 按钮，点击弹出选项中的「Download Zip」，下载插件压缩包至 Claude 同一文件夹下。（若难以寻找 Claude 路径，请使用 Everything 工具，下载方式见<a href="#step8" class="inline-link">"8. 文件查找工具推荐：Everything"</a>。）</p>
+
+        <p style="margin-top: 18px;">解压 zip 文件后，打开作者撰写的安装教程：</p>
+        <div class="code-block">
+            <span class="lang">url</span>
+            <button class="copy-btn" onclick="copyCode(this)">复制</button>
+            <code>https://github.com/CSlawyer1985/claude-for-legal-ZH/blob/main/QUICKSTART.md</code>
+        </div>
+        <p>您可直接阅读「在 Claude Code 中安装」这一部分。</p>
+
+        <div class="tip">
+            <div class="tip-title">提示</div>
+            <p>教程"3. 安装你需要的插件"中，请在以下页面的「仓库布局」中选择您需要的插件名称，并替换命令中的 <code>commercial-legal</code>：</p>
+            <div class="code-block">
+                <span class="lang">url</span>
+                <button class="copy-btn" onclick="copyCode(this)">复制</button>
+                <code>https://github.com/CSlawyer1985/claude-for-legal-ZH/blob/main/README.md</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="step" id="step7">
+        <div class="step-header">
+            <div class="step-number">7</div>
             <h2>常见问题</h2>
         </div>
 
@@ -1032,9 +1072,9 @@ Remove-Item -Path "$env:USERPROFILE\.claude.json" -Force</code>
 
     <div class="divider"></div>
 
-    <div class="step" id="step7">
+    <div class="step" id="step8">
         <div class="step-header">
-            <div class="step-number">7</div>
+            <div class="step-number">8</div>
             <h2>文件查找工具推荐：Everything</h2>
         </div>
         <p>Everything是一款高效文件查找工具。若您的电脑系统中搜索栏不够全面和精准，例如只能搜索C盘或常见文件，推荐您下载Everything这一免费开源、没有安全隐患的本地工具。Everything对于本次安装也有协助作用。</p>
