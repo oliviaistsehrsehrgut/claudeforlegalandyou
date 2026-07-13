@@ -147,6 +147,7 @@
         .step:nth-child(6) { animation-delay: 0.35s; }
         .step:nth-child(7) { animation-delay: 0.4s; }
         .step:nth-child(8) { animation-delay: 0.45s; }
+        .step:nth-child(9) { animation-delay: 0.5s; }
 
         @keyframes fadeIn {
             to { opacity: 1; }
@@ -685,8 +686,9 @@
             <li><a href="#step4">安装 cc-switch，接入更多模型</a></li>
             <li><a href="#step5">Claude Code 基础使用</a></li>
             <li><a href="#step6">Claude for Legal 安装与激活教程</a></li>
-            <li><a href="#step7">常见问题</a></li>
-            <li><a href="#step8">文件查找工具推荐：Everything</a></li>
+            <li><a href="#step7">Claude 常用命令（含模型切换）及模型收费方案</a></li>
+            <li><a href="#step8">常见问题</a></li>
+            <li><a href="#step9">文件查找工具推荐：Everything</a></li>
         </ol>
     </div>
 
@@ -988,7 +990,7 @@
             <button class="copy-btn" onclick="copyCode(this)">复制</button>
             <code>https://github.com/CSlawyer1985/claude-for-legal-ZH/tree/main</code>
         </div>
-        <p>点击绿色的 <code>Code</code> 按钮，点击弹出选项中的「Download Zip」，下载插件压缩包至 Claude 同一文件夹下。（若难以寻找 Claude 路径，请使用 Everything 工具，下载方式见<a href="#step8" class="inline-link">"8. 文件查找工具推荐：Everything"</a>。）</p>
+        <p>点击绿色的 <code>Code</code> 按钮，点击弹出选项中的「Download Zip」，下载插件压缩包至 Claude 同一文件夹下。（若难以寻找 Claude 路径，请使用 Everything 工具，下载方式见<a href="#step9" class="inline-link">"9. 文件查找工具推荐：Everything"</a>。）</p>
 
         <p style="margin-top: 18px;">解压 zip 文件后，打开作者撰写的安装教程：</p>
         <div class="code-block">
@@ -1038,6 +1040,147 @@
     <div class="step" id="step7">
         <div class="step-header">
             <div class="step-number">7</div>
+            <h2>Claude 常用命令（含模型切换）及模型收费方案</h2>
+        </div>
+
+        <style>
+            .cmd-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 16px 0;
+                background: var(--card-bg);
+                border-radius: 8px;
+                overflow: hidden;
+                border: 1px solid var(--border);
+            }
+            .cmd-table th {
+                background: #f8f9fa;
+                padding: 12px 14px;
+                text-align: left;
+                font-size: 0.88rem;
+                font-weight: 600;
+                color: var(--text);
+                border-bottom: 2px solid var(--border);
+            }
+            .cmd-table td {
+                padding: 10px 14px;
+                font-size: 0.88rem;
+                border-bottom: 1px solid #f0f0f0;
+                vertical-align: top;
+            }
+            .cmd-table tr:last-child td {
+                border-bottom: none;
+            }
+            .cmd-table code {
+                background: #f3f4f6;
+                padding: 2px 6px;
+                border-radius: 4px;
+                font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+                font-size: 0.85em;
+                white-space: nowrap;
+            }
+            .section-title {
+                margin-top: 28px;
+                margin-bottom: 12px;
+                font-weight: 600;
+                font-size: 1rem;
+                color: var(--accent);
+            }
+            .note-block {
+                background: #f8f9fa;
+                border-left: 3px solid var(--accent);
+                border-radius: 0 6px 6px 0;
+                padding: 14px 18px;
+                margin: 20px 0;
+                font-size: 0.88rem;
+                line-height: 1.7;
+            }
+            .note-block p {
+                margin-bottom: 8px;
+            }
+            .note-block p:last-child {
+                margin-bottom: 0;
+            }
+        </style>
+
+        <div class="section-title">日常通用</div>
+        <table class="cmd-table">
+            <thead>
+                <tr><th>命令</th><th>说明</th><th>备注</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><code>claude</code></td><td>启动交互式对话</td><td>进入对话界面</td></tr>
+                <tr><td><code>claude -c</code></td><td>继续最近的对话</td><td>省去重新说明背景的麻烦</td></tr>
+                <tr><td><code>claude "问题"</code></td><td>带初始提示启动</td><td>问完即走，适合简单查询</td></tr>
+                <tr><td><code>/clear</code></td><td>开始新对话</td><td>清空当前上下文，避免干扰</td></tr>
+                <tr><td><code>/model</code></td><td>切换 AI 模型</td><td>按任务需求在 Opus/Sonnet/Haiku 等模型间切换</td></tr>
+            </tbody>
+        </table>
+
+        <div class="section-title">文本处理</div>
+        <table class="cmd-table">
+            <thead>
+                <tr><th>命令</th><th>说明</th><th>备注</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><code>/compact</code></td><td>压缩对话上下文</td><td>对话太长时释放空间，不丢失关键信息</td></tr>
+                <tr><td><code>/diff</code></td><td>查看修改对比</td><td>文书修改前后对比，类似 Word 修订模式</td></tr>
+                <tr><td><code>/export [文件名]</code></td><td>导出对话为文本</td><td>保存讨论成果，便于归档或二次编辑</td></tr>
+                <tr><td><code>/memory</code></td><td>编辑项目记忆（CLAUDE.md）</td><td>让 AI 记住你的写作风格、术语偏好等，长期有效</td></tr>
+            </tbody>
+        </table>
+
+        <div class="section-title">成本与权限控制</div>
+        <table class="cmd-table">
+            <thead>
+                <tr><th>命令</th><th>说明</th><th>备注</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><code>/usage</code></td><td>查看会话费用和用量</td><td>控制成本，防止超额</td></tr>
+                <tr><td><code>/permissions</code></td><td>管理权限规则</td><td>设为 <code>auto</code> 可减少确认弹窗，提高效率</td></tr>
+                <tr><td><code>--permission-mode auto</code></td><td>启动时自动批准操作</td><td>适合信任场景，文书工作常用</td></tr>
+            </tbody>
+        </table>
+
+        <div class="section-title">模型收费方案（API 按量计费）</div>
+        <p style="margin-bottom: 12px;">以下为 Claude 最新版模型的 API 定价，按<strong>每百万 Token（MTok）</strong>计费，单位为美元：</p>
+        <table class="cmd-table">
+            <thead>
+                <tr><th>模型</th><th>输入价格（$/MTok）</th><th>输出价格（$/MTok）</th><th>适用场景</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Claude Haiku 4.5</strong></td><td>$1</td><td>$5</td><td>最快、最便宜，适合摘要、标题生成、简单问答</td></tr>
+                <tr><td><strong>Claude Sonnet 5</strong><br><span style="font-size:0.82rem;color:var(--text-light);">优惠价，至2026.8.31</span></td><td>$2</td><td>$10</td><td>性价比首选，性能接近 Opus 4.8</td></tr>
+                <tr><td><strong>Claude Sonnet 5</strong><br><span style="font-size:0.82rem;color:var(--text-light);">标准价，2026.9.1起</span></td><td>$3</td><td>$15</td><td>优惠期结束后恢复</td></tr>
+                <tr><td><strong>Claude Opus 4.8</strong></td><td>$5</td><td>$25</td><td>最强推理能力，适合复杂文书起草、深度润色</td></tr>
+                <tr><td><strong>Claude Fable 5</strong></td><td>$10</td><td>$50</td><td>最强大模型，适合长时间、异步的复杂任务</td></tr>
+            </tbody>
+        </table>
+
+        <div class="note-block">
+            <p><strong>说明：</strong></p>
+            <p>- <strong>Token</strong>是 AI 处理文本的最小单位，约 100 个英文单词对应 130-150 个 Token。中文文本的 Token 消耗通常更高。</p>
+            <p>- <strong>订阅方案</strong>（非 API）：Pro 计划 $20/月，Max 计划 $100/月起，包含固定用量额度。</p>
+            <p>- <strong>努力级别（<code>/effort</code>）</strong>：控制模型思考深度——<code>low</code>快速粗略 / <code>medium</code>平衡 / <code>high</code>精雕细琢 / <code>xhigh</code>极尽细致（最费 Token）。文书定稿推荐 <code>high</code>，初稿可用 <code>medium</code>。Opus 4.8 默认即为 <code>high</code> 级别。</p>
+        </div>
+
+        <div class="section-title">快捷键补充</div>
+        <table class="cmd-table">
+            <thead>
+                <tr><th>快捷键</th><th>作用</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><code>Ctrl+O</code></td><td>查看对话历史记录</td></tr>
+                <tr><td><code>Ctrl+C</code></td><td>取消当前生成</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="step" id="step8">
+        <div class="step-header">
+            <div class="step-number">8</div>
             <h2>常见问题</h2>
         </div>
 
@@ -1099,9 +1242,9 @@ Remove-Item -Path "$env:USERPROFILE\.claude.json" -Force</code>
 
     <div class="divider"></div>
 
-    <div class="step" id="step8">
+    <div class="step" id="step9">
         <div class="step-header">
-            <div class="step-number">8</div>
+            <div class="step-number">9</div>
             <h2>文件查找工具推荐：Everything</h2>
         </div>
         <p>Everything是一款高效文件查找工具。若您的电脑系统中搜索栏不够全面和精准，例如只能搜索C盘或常见文件，推荐您下载Everything这一免费开源、没有安全隐患的本地工具。Everything对于本次安装也有协助作用。</p>
