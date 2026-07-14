@@ -680,65 +680,20 @@
     <div class="toc">
         <h2>目录</h2>
         <ol>
-            <li><a href="#step1">安装 Git Bash（仅 Windows）</a></li>
-            <li><a href="#step2">安装 Claude Code 本体</a></li>
-            <li><a href="#step3">配置环境变量 PATH</a></li>
-            <li><a href="#step4">安装 cc-switch，接入更多模型</a></li>
-            <li><a href="#step5">Claude Code 基础使用</a></li>
-            <li><a href="#step6">Claude for Legal 安装与激活教程</a></li>
-            <li><a href="#step7">Claude 常用命令（含模型切换）及模型收费方案</a></li>
-            <li><a href="#step8">常见问题</a></li>
-            <li><a href="#step9">文件查找工具推荐：Everything</a></li>
+            <li><a href="#step1">安装 Claude Code 本体</a></li>
+            <li><a href="#step2">配置环境变量 PATH</a></li>
+            <li><a href="#step3">cc-switch 接入第三方模型</a></li>
+            <li><a href="#step4">Claude Code 基础使用</a></li>
+            <li><a href="#step5">Claude for Legal 安装与激活教程</a></li>
+            <li><a href="#step6">Claude 常用命令（含模型切换）及模型收费方案</a></li>
+            <li><a href="#step7">常见问题</a></li>
+            <li><a href="#step8">文件查找工具推荐：Everything</a></li>
         </ol>
     </div>
 
     <div class="step" id="step1">
         <div class="step-header">
             <div class="step-number">1</div>
-            <h2>安装 Git Bash（仅 Windows 需要，Mac / Linux 跳过）</h2>
-        </div>
-        <p><a href="https://git-scm.com/download/win" target="_blank" rel="noopener" style="color: #1a1a1a;">从 Git 官网下载</a></p>
-        
-        <div class="download-group">
-            <span class="download-sub">您也可以选择下方第三方安装方式，更加便捷。</span>
-            <div class="download-grid">
-                <a href="https://wwayc.lanzoub.com/iSdog3n29ung" class="download-btn" target="_blank" rel="noopener">
-                    <div class="download-left">
-                        <span class="download-icon">📥</span>
-                        <div class="download-label">
-                            <strong>Git for Windows（64-bit）</strong>
-                            <span>适用于绝大多数 Windows 电脑</span>
-                            <div class="download-code-row">
-                                <span>提取码 <code>67no</code></span>
-                                <button class="passcode-copy-btn" type="button" onclick="copyText(event, this, '67no')">复制提取码</button>
-                            </div>
-                        </div>
-                    </div>
-                    <span class="download-arrow">→</span>
-                </a>
-                <a href="https://wwayc.lanzoub.com/ioqPy3n29vmb" class="download-btn" target="_blank" rel="noopener">
-                    <div class="download-left">
-                        <span class="download-icon">📥</span>
-                        <div class="download-label">
-                            <strong>Git for Windows（ARM64）</strong>
-                            <span>适用于 ARM 处理器的 Windows 电脑</span>
-                            <div class="download-code-row">
-                                <span>提取码 <code>f3m1</code></span>
-                                <button class="passcode-copy-btn" type="button" onclick="copyText(event, this, 'f3m1')">复制提取码</button>
-                            </div>
-                        </div>
-                    </div>
-                    <span class="download-arrow">→</span>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="divider"></div>
-
-    <div class="step" id="step2">
-        <div class="step-header">
-            <div class="step-number">2</div>
             <h2>安装 Claude Code 本体</h2>
         </div>
         <p>打开终端（Windows 用 PowerShell，Mac/Linux 用 Terminal），粘贴命令即可：</p>
@@ -843,12 +798,12 @@
 
     <div class="divider"></div>
 
-    <div class="step" id="step4">
+    <div class="step" id="step3">
         <div class="step-header">
-            <div class="step-number">4</div>
-            <h2>安装 cc-switch，接入更多模型</h2>
+            <div class="step-number">3</div>
+            <h2>cc-switch 接入第三方模型</h2>
         </div>
-        <p>软件装好了，但还没有 AI 模型可用。这时候需要 <strong>cc-switch</strong>，它可以切换不同的 AI 模型提供商。</p>
+        <p class="note">若您希望接入除 Claude 账户所提供模型以外的模型，特别是国产模型，可以安装 cc-switch。</p>
 
         <div class="tip">
             <div class="tip-title">cc-switch 支持的模型</div>
@@ -935,9 +890,9 @@
 
     <div class="divider"></div>
 
-    <div class="step" id="step5">
+    <div class="step" id="step4">
         <div class="step-header">
-            <div class="step-number">5</div>
+            <div class="step-number">4</div>
             <h2>Claude Code 基础使用</h2>
         </div>
         <div class="qa-item">
@@ -973,9 +928,9 @@
 
     <div class="divider"></div>
 
-    <div class="step" id="step6">
+    <div class="step" id="step5">
         <div class="step-header">
-            <div class="step-number">6</div>
+            <div class="step-number">5</div>
             <h2>Claude for Legal 安装与激活教程</h2>
         </div>
 
@@ -990,7 +945,7 @@
             <button class="copy-btn" onclick="copyCode(this)">复制</button>
             <code>https://github.com/CSlawyer1985/claude-for-legal-ZH/tree/main</code>
         </div>
-        <p>点击绿色的 <code>Code</code> 按钮，点击弹出选项中的「Download Zip」，下载插件压缩包至 Claude 同一文件夹下。（若难以寻找 Claude 路径，请使用 Everything 工具，下载方式见<a href="#step9" class="inline-link">"9. 文件查找工具推荐：Everything"</a>。）</p>
+        <p>点击绿色的 <code>Code</code> 按钮，点击弹出选项中的「Download Zip」，下载插件压缩包至 Claude 同一文件夹下。（若难以寻找 Claude 路径，请使用 Everything 工具，下载方式见<a href="#step8" class="inline-link">"8. 文件查找工具推荐：Everything"</a>。）</p>
 
         <p style="margin-top: 18px;">解压 zip 文件后，打开作者撰写的安装教程：</p>
         <div class="code-block">
@@ -1037,9 +992,9 @@
 
     <div class="divider"></div>
 
-    <div class="step" id="step7">
+    <div class="step" id="step6">
         <div class="step-header">
-            <div class="step-number">7</div>
+            <div class="step-number">6</div>
             <h2>Claude 常用命令（含模型切换）及模型收费方案</h2>
         </div>
 
@@ -1178,9 +1133,9 @@
 
     <div class="divider"></div>
 
-    <div class="step" id="step8">
+    <div class="step" id="step7">
         <div class="step-header">
-            <div class="step-number">8</div>
+            <div class="step-number">7</div>
             <h2>常见问题</h2>
         </div>
 
@@ -1242,9 +1197,9 @@ Remove-Item -Path "$env:USERPROFILE\.claude.json" -Force</code>
 
     <div class="divider"></div>
 
-    <div class="step" id="step9">
+    <div class="step" id="step8">
         <div class="step-header">
-            <div class="step-number">9</div>
+            <div class="step-number">8</div>
             <h2>文件查找工具推荐：Everything</h2>
         </div>
         <p>Everything是一款高效文件查找工具。若您的电脑系统中搜索栏不够全面和精准，例如只能搜索C盘或常见文件，推荐您下载Everything这一免费开源、没有安全隐患的本地工具。Everything对于本次安装也有协助作用。</p>
