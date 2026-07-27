@@ -505,8 +505,6 @@
             transition: all 0.2s;
             font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
         }
-            color: var(--text);
-        }
 
         .tab-btn.active {
             color: var(--accent);
@@ -599,101 +597,223 @@
             }
         }
 
-        @media (min-width: 1100px) {
-            body {
-                font-size: 18px;
-            }
+        /* ====== 左侧固定导航栏 ====== */
+        .page-wrapper {
+            display: flex;
+            justify-content: center;
+        }
 
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 220px;
+            height: 100vh;
+            background: var(--card-bg);
+            border-right: 1px solid var(--border);
+            padding: 32px 0 24px 20px;
+            overflow-y: auto;
+            z-index: 100;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar::-webkit-scrollbar { width: 3px; }
+        .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+        .sidebar-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            padding-left: 28px;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            position: relative;
+        }
+
+        /* 轴线 */
+        .sidebar-nav::before {
+            content: '';
+            position: absolute;
+            left: 9px;
+            top: 6px;
+            bottom: 6px;
+            width: 2px;
+            background: var(--border);
+            border-radius: 1px;
+        }
+
+        .sidebar-nav li {
+            position: relative;
+            margin-bottom: 4px;
+        }
+
+        /* 节点 */
+        .sidebar-nav li::before {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 10px;
+            width: 12px;
+            height: 12px;
+            background: var(--bg);
+            border: 2px solid #ccc;
+            border-radius: 50%;
+            z-index: 1;
+            transition: all 0.25s ease;
+        }
+
+        .sidebar-nav a {
+            display: block;
+            padding: 6px 0 6px 32px;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.82rem;
+            line-height: 1.5;
+            transition: color 0.2s ease;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .sidebar-nav a:hover {
+            color: var(--accent);
+        }
+
+        /* 激活状态：节点变墨绿色 + 文字变色 */
+        .sidebar-nav li.active::before {
+            background: var(--accent);
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(3, 120, 111, 0.15);
+        }
+
+        .sidebar-nav li.active a {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* 移动端隐藏 */
+        @media (max-width: 1024px) {
+            .sidebar { display: none; }
+            .page-wrapper { display: block; }
+        }
+
+        @media (min-width: 1100px) {
+            body { font-size: 18px; }
             .container {
                 max-width: 940px;
                 padding: 96px 36px 104px;
             }
+            .header h1 { font-size: 2.7rem; margin-bottom: 16px; }
+            .header .subtitle, .header .meta-row { font-size: 1.05rem; }
+            .toc { padding: 30px 34px; }
+            .toc h2 { font-size: 0.96rem; }
+            .toc ol { font-size: 1.04rem; }
+            .step-header h2 { font-size: 1.72rem; }
+            .step p, .qa-a, .qa-q { font-size: 1.06rem; }
+            .step .note, .download-sub, .download-label span { font-size: 0.95rem; }
+            .tip, .warning { padding: 20px 24px; font-size: 1rem; }
+            .download-btn { padding: 18px 24px; }
+            .download-label strong { font-size: 1.06rem; }
+            .code-block { font-size: 0.98rem; padding: 18px 22px; }
 
-            .header h1 {
-                font-size: 2.7rem;
-                margin-bottom: 16px;
-            }
-
-            .header .subtitle,
-            .header .meta-row {
-                font-size: 1.05rem;
-            }
-
-            .toc {
-                padding: 30px 34px;
-            }
-
-            .toc h2 {
-                font-size: 0.96rem;
-            }
-
-            .toc ol {
-                font-size: 1.04rem;
-            }
-
-            .step-header h2 {
-                font-size: 1.72rem;
-            }
-
-            .step p,
-            .qa-a,
-            .qa-q {
-                font-size: 1.06rem;
-            }
-
-            .step .note,
-            .download-sub,
-            .download-label span {
-                font-size: 0.95rem;
-            }
-
-            .tip,
-            .warning {
-                padding: 20px 24px;
-                font-size: 1rem;
-            }
-
-            .download-btn {
-                padding: 18px 24px;
-            }
-
-            .download-label strong {
-                font-size: 1.06rem;
-            }
-
-            .code-block {
-                font-size: 0.98rem;
-                padding: 18px 22px;
-            }
+            /* 大屏下主内容区左偏移，给侧边栏留空间 */
+            .page-wrapper { padding-left: 220px; }
         }
     </style>
 </head>
 <body>
 
+<!-- 左侧固定导航 -->
+<nav class="sidebar">
+    <div class="sidebar-title">目录</div>
+    <ul class="sidebar-nav">
+        <li><a href="#step1">安装 Git Bash</a></li>
+        <li><a href="#step2">安装 Claude Code 本体</a></li>
+        <li><a href="#step3">配置环境变量 PATH</a></li>
+        <li><a href="#step4">cc-switch 接入第三方模型</a></li>
+        <li><a href="#step5">Claude Code 基础使用</a></li>
+        <li><a href="#step6">常用命令及收费方案</a></li>
+        <li><a href="#step7">Claude for Legal 安装</a></li>
+        <li><a href="#step8">常见问题</a></li>
+        <li><a href="#step9">文件查找工具：Everything</a></li>
+    </ul>
+</nav>
+
+<div class="page-wrapper">
+
 <div class="container">
 
     <div class="header">
         <h1>Claude Code CLI （命令行版本）安装教程</h1>
-        <p class="subtitle">命令行版本的Claude Code与其他Claude产品共享相同底层模型，为VibeCoding设计，也可用于文书工作。就文书工作而言，其优点在于**内存小，灵活性强，稳定性高**；缺点在于CLI界面对非开发人员而言**不够舒适，操作难度大**。</p>
+        <p class="subtitle">命令行版本的Claude Code与其他Claude产品共享相同底层模型，为VibeCoding设计，也可用于文书工作。就文书工作而言，其优点在于<strong>内存小，灵活性强，稳定性高</strong>；缺点在于CLI界面对非开发人员而言<strong>不够舒适，操作难度大</strong>。</p>
     </div>
 
     <div class="toc">
         <h2>目录</h2>
         <ol>
-            <li><a href="#step1">安装 Claude Code 本体</a></li>
-            <li><a href="#step2">配置环境变量 PATH</a></li>
-            <li><a href="#step3">cc-switch 接入第三方模型（可选）</a></li>
-            <li><a href="#step4">Claude Code 基础使用</a></li>
-            <li><a href="#step5">Claude 常用命令（含模型切换）及模型收费方案</a></li>
-            <li><a href="#step6">Claude for Legal 安装与激活教程</a></li>
-            <li><a href="#step7">常见问题</a></li>
-            <li><a href="#step8">文件查找工具推荐：Everything</a></li>
+            <li><a href="#step1">安装 Git Bash（仅 Windows）</a></li>
+            <li><a href="#step2">安装 Claude Code 本体</a></li>
+            <li><a href="#step3">配置环境变量 PATH</a></li>
+            <li><a href="#step4">cc-switch 接入第三方模型（可选）</a></li>
+            <li><a href="#step5">Claude Code 基础使用</a></li>
+            <li><a href="#step6">Claude 常用命令（含模型切换）及模型收费方案</a></li>
+            <li><a href="#step7">Claude for Legal 安装与激活教程</a></li>
+            <li><a href="#step8">常见问题</a></li>
+            <li><a href="#step9">文件查找工具推荐：Everything</a></li>
         </ol>
     </div>
 
     <div class="step" id="step1">
         <div class="step-header">
             <div class="step-number">1</div>
+            <h2>安装 Git Bash（仅 Windows 需要，Mac / Linux 跳过）</h2>
+        </div>
+        <p>Git Bash 是 Windows 上的命令行工具，Claude Code 需要在终端中运行。如果你已经安装了 Git for Windows（通常自带 Git Bash），可以跳过此步。</p>
+        <p><a href="https://git-scm.com/download/win" target="_blank" rel="noopener">从 Git 官网下载</a></p>
+
+        <div class="download-group">
+            <div class="download-grid">
+                <a href="https://git-scm.com/download/win" class="download-btn" target="_blank" rel="noopener">
+                    <div class="download-left">
+                        <span class="download-icon">📦</span>
+                        <div class="download-label">
+                            <strong>Git for Windows（64-bit）</strong>
+                            <span>大多数 Windows 电脑选这个</span>
+                        </div>
+                    </div>
+                    <span class="download-arrow">→</span>
+                </a>
+                <a href="https://git-scm.com/download/win/arm64" class="download-btn" target="_blank" rel="noopener">
+                    <div class="download-left">
+                        <span class="download-icon">📦</span>
+                        <div class="download-label">
+                            <strong>Git for Windows（ARM64）</strong>
+                            <span>ARM 架构的电脑选这个</span>
+                        </div>
+                    </div>
+                    <span class="download-arrow">→</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="tip">
+            <div class="tip-title">如何确认是否已安装？</div>
+            <p>打开 PowerShell 或开始菜单搜索 "Git Bash"，如果能找到并打开，说明已安装，可直接跳到下一步。</p>
+        </div>
+
+        <p class="note">安装时保持默认选项即可，一路点 Next 完成安装。安装完成后建议重启一次电脑。</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="step" id="step2">
+        <div class="step-header">
+            <div class="step-number">2</div>
             <h2>安装 Claude Code 本体</h2>
         </div>
         <p>打开终端（Windows 用 PowerShell，Mac/Linux 用 Terminal），粘贴命令即可：</p>
@@ -748,9 +868,9 @@
 
     <div class="divider"></div>
 
-    <div class="step" id="step2">
+    <div class="step" id="step3">
         <div class="step-header">
-            <div class="step-number">2</div>
+            <div class="step-number">3</div>
             <h2>配置环境变量 PATH</h2>
         </div>
         <p>把 <code>C:\Users\你的用户名\.local\bin\</code> 加到用户级 PATH。</p>
@@ -798,9 +918,9 @@
 
     <div class="divider"></div>
 
-    <div class="step" id="step3">
+    <div class="step" id="step4">
         <div class="step-header">
-            <div class="step-number">3</div>
+            <div class="step-number">4</div>
             <h2>cc-switch 接入第三方模型（可选）</h2>
         </div>
         <p>Claude、GPT 等模型可通过 API 服务接入，Claude原生模型也可使用您Claude账户额度。请注意各种方式的计费规则。
@@ -891,9 +1011,9 @@
 
     <div class="divider"></div>
 
-    <div class="step" id="step4">
+    <div class="step" id="step5">
         <div class="step-header">
-            <div class="step-number">4</div>
+            <div class="step-number">5</div>
             <h2>Claude Code 基础使用</h2>
         </div>
         <div class="qa-item">
@@ -929,9 +1049,9 @@
 
     <div class="divider"></div>
 
-    <div class="step" id="step5">
+    <div class="step" id="step6">
         <div class="step-header">
-            <div class="step-number">5</div>
+            <div class="step-number">6</div>
             <h2>Claude 常用命令（含模型切换）及模型收费方案</h2>
         </div>
 
@@ -1070,9 +1190,9 @@
 
     <div class="divider"></div>
 
-    <div class="step" id="step6">
+    <div class="step" id="step7">
         <div class="step-header">
-            <div class="step-number">6</div>
+            <div class="step-number">7</div>
             <h2>Claude for Legal 安装与激活教程</h2>
         </div>
 
@@ -1086,7 +1206,7 @@
             <button class="copy-btn" onclick="copyCode(this)">复制</button>
             <code>https://github.com/CSlawyer1985/claude-for-legal-ZH/tree/main</code>
         </div>
-        <p>点击绿色的 <code>Code</code> 按钮，点击弹出选项中的「Download Zip」，下载插件压缩包至 Claude 同一文件夹下。（若难以寻找 Claude 路径，请使用 Everything 工具，下载方式见<a href="#step8" class="inline-link">"8. 文件查找工具推荐：Everything"</a>。）</p>
+        <p>点击绿色的 <code>Code</code> 按钮，点击弹出选项中的「Download Zip」，下载插件压缩包至 Claude 同一文件夹下。（若难以寻找 Claude 路径，请使用 Everything 工具，下载方式见<a href="#step9" class="inline-link">"9. 文件查找工具推荐：Everything"</a>。）</p>
 
         <p style="margin-top: 18px;">解压 zip 文件后，打开作者撰写的安装教程：</p>
         <div class="code-block">
@@ -1133,9 +1253,9 @@
 
     <div class="divider"></div>
 
-    <div class="step" id="step7">
+    <div class="step" id="step8">
         <div class="step-header">
-            <div class="step-number">7</div>
+            <div class="step-number">8</div>
             <h2>常见问题</h2>
         </div>
 
@@ -1197,9 +1317,9 @@ Remove-Item -Path "$env:USERPROFILE\.claude.json" -Force</code>
 
     <div class="divider"></div>
 
-    <div class="step" id="step8">
+    <div class="step" id="step9">
         <div class="step-header">
-            <div class="step-number">8</div>
+            <div class="step-number">9</div>
             <h2>文件查找工具推荐：Everything</h2>
         </div>
         <p>Everything是一款高效文件查找工具。若您的电脑系统中搜索栏不够全面和精准，例如只能搜索C盘或常见文件，推荐您下载Everything这一免费开源、没有安全隐患的本地工具。Everything对于本次安装也有协助作用。</p>
@@ -1209,7 +1329,7 @@ Remove-Item -Path "$env:USERPROFILE\.claude.json" -Force</code>
         <p class="note">（下载步骤较为简单，若您遇到困难可查看教程。）</p>
     </div>
 
-</div>
+</div><!-- /page-wrapper -->
 
 <div class="container">
     <div style="margin-top: 48px; margin-bottom: 48px; text-align: center; color: var(--text-light); font-size: 0.95rem;">
@@ -1263,6 +1383,34 @@ function toggleImageGallery(summary) {
         summary.textContent = '查看图示';
     }
 }
+
+// ====== 侧边栏滚动高亮 ======
+(function() {
+    const sections = document.querySelectorAll('.step[id^="step"]');
+    const navLinks = document.querySelectorAll('.sidebar-nav li');
+
+    function updateActiveNav() {
+        const scrollTop = window.scrollY + 120;
+        let current = '';
+
+        sections.forEach(function(section) {
+            const top = section.offsetTop;
+            if (scrollTop >= top) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(function(li) {
+            li.classList.remove('active');
+            if (li.querySelector('a').getAttribute('href') === '#' + current) {
+                li.classList.add('active');
+            }
+        });
+    }
+
+    window.addEventListener('scroll', updateActiveNav, { passive: true });
+    updateActiveNav();
+})();
 
 
 </script>
